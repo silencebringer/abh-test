@@ -1,5 +1,9 @@
 <?php
 
+use Connections\Database;
+
+require_once __DIR__ . '/autoload.php';
+
 $migrationsDir = __DIR__ . '/migrations';
 
 if (!is_dir($migrationsDir)) {
@@ -10,16 +14,7 @@ $migrations = glob($migrationsDir . '/*.php');
 
 sort($migrations);
 
-$config = require __DIR__ . '/config.php';
-
-$pdo = new PDO(
-    "mysql:host={$config['database']['host']};dbname={$config['database']['database']}",
-    $config['database']['username'],
-    $config['database']['password'],
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    ]
-);
+$pdo = Database::connection();
 
 foreach ($migrations as $migrationFile) {
     echo "Running migration: " . basename($migrationFile) . PHP_EOL;

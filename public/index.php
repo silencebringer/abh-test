@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../autoload.php';
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $segments = array_values(array_filter(explode('/', $path)));
@@ -25,4 +27,5 @@ if (!is_callable([$controller, $action])) {
     throw new Exception('Method "' . $action . '" is not callable in "' . $controllerName . '" controller');
 }
 
-return $controller->$action();
+$controller->$action();
+exit();

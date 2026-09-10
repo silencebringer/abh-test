@@ -8,7 +8,8 @@ return function (PDO $pdo): void {
             name varchar(255) not null unique,
             description text not null,
             text text not null,
-            views_count int not null default 0
+            views_count int not null default 0,
+            published_at datetime not null
         )
     ");
 };
