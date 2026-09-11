@@ -8,11 +8,15 @@
             <a href="/categories/show/{$category.id}">{$category.name}</a>
         {/foreach}
     </div>
-    <div>Viewed {$post.views_count} time{$post.views_count == 1 ? '' : 's'}</div>
+    <div class="post-views-count">Viewed {$post.views_count} time{$post.views_count == 1 ? '' : 's'}</div>
 
-    <p>{$post.description}</p>
+    <div>
+        <img src="https://picsum.photos/1100/600" alt="">
+    </div>
 
-    <div>{$post.text}</div>
+    <p class="post-description">{$post.description}</p>
+
+    <div>{$post.text|nl2br}</div>
 
     {if $similarPosts|count}
         <h3>Similar Posts</h3>

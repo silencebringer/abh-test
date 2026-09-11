@@ -2,6 +2,7 @@
   --primary: #1878cc;
   --secondary: #24aaff;
   --gray: #333333;
+  --light-gray: #cccccc;
 }
 
 html {
@@ -14,18 +15,113 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
+  color: var(--gray);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 25px 50px;
+  box-sizing: border-box;
 }
 
 header {
-  padding: 25px;
   background: var(--primary);
 
+  nav {
+    a {
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 24px;
+    }
+  }
+}
+
+main {
+  h4  {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+
+    .hint {
+      font-size: 20px;
+      color: var(--light-gray);
+    }
+  }
+
+  li {
+    margin-bottom: 10px;
+
+    &::marker{
+      color: var(--secondary);
+    }
+
+    &:hover::marker {
+      color: var(--primary);
+    }
+  }
+
   a {
-    color: #fff;
+    color: var(--secondary);
     text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 20px;
+
+    &:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+  }
+
+  .category-posts-sort {
+    display: flex;
+    justify-content: start;
+    gap: 16px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    a {
+      border: 1px solid var(--light-gray);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.post-views-count {
+  margin-bottom: 20px;
+}
+
+.post-description {
+  margin-bottom: 40px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+
+  @media (min-width: 1300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    padding: 20px;
   }
 }

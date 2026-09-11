@@ -12,13 +12,17 @@
 <body>
 
 <header>
-    <nav>
-        <a href="/">На главную</a>
-    </nav>
+    <div class="container">
+        <nav>
+            <a href="/">На главную</a>
+        </nav>
+    </div>
 </header>
 
 <main>
-    {block name="content"}{/block}
+    <div class="container">
+        {block name="content"}{/block}
+    </div>
 </main>
 
 </body>
