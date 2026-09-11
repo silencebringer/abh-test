@@ -2,10 +2,42 @@
 
 namespace Controllers;
 
-class CategoriesController
+use Models\Category;
+use Models\Post;
+
+class CategoriesController extends Controller
 {
-    protected function index(): void
+    public function show($id): void
     {
-        echo'Index of CategoriesController';
+        $category = (new Category)->find($id);
+
+        $posts = (new Post)->paginateCategoryPosts(
+            $id,
+            [
+                'sort' => $_GET['sort'] ?? 'published_at',
+                'dir' => $_GET['dir'] ?? (isset($_GET['sort']) ? 'asc' : 'desc') ,
+            ],
+            $_GET['page'] ?? 1
+        );
+
+        $appendSort = [];
+
+        $sort = [
+            'sort' => $_GET['sort'] ?? '',
+            'dir' => $_GET['dir'] ?? '',
+        ];
+
+        foreach ($sort as $key => $value) {
+            if ($value) {
+                $appendSort[] = "$key=$value";
+            }
+        }
+
+        $appendSort = implode('&', $appendSort);
+
+        $this->render(
+            'category',
+            compact('category', 'posts', 'sort', 'appendSort')
+        );
     }
 }

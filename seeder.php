@@ -38,21 +38,31 @@ for ($i = 0; $i < $categoriesCount; $i++) {
 
 $postsCount = 100;
 
+$now = new DateTimeImmutable();
+
 for ($i = 0; $i < $postsCount; $i++) {
     $postName = 'Post ' . time() . '-' . rand(100000, 999999);
 
-    $pdo->prepare('insert into `posts` (`name`, `description`, `text`) values (:name, :description, :text)')
+    $publishedAt = $now
+        ->sub(new DateInterval('P' . rand(1,60) . 'DT' . rand(1,59) . 'H' . rand(1,59) . 'M'))
+        ->format('Y-m-d H:i:s');
+
+    $viewsCount = rand(1, 100000);
+
+    $pdo->prepare('insert into `posts` (`name`, `description`, `text`, `published_at`, `views_count`) values (:name, :description, :text, :published_at, :views_count)')
         ->execute([
             'name' => $postName,
             'description' => $postName . ' Description',
             'text' => $postName . ' Text',
+            'published_at' => $publishedAt,
+            'views_count' => $viewsCount,
         ]);
 
     $postId = $pdo->lastInsertId();
 
     shuffle($categoriesIds);
 
-    $associatedCategoriesKeys = array_rand($categoriesIds, rand(1, 4));
+    $associatedCategoriesKeys = array_rand($categoriesIds, rand(1, 2));
 
     if (!is_array($associatedCategoriesKeys)) {
         $associatedCategoriesKeys = [$associatedCategoriesKeys];
@@ -63,7 +73,7 @@ for ($i = 0; $i < $postsCount; $i++) {
         array_flip($associatedCategoriesKeys)
     );
 
-    $newName = 'Post ' . $postId . ' for categories ' . implode(', ', $associatedCategories);
+    $newName = 'Post ' . $postId . ' published at ' .  $publishedAt . ' for categories ' . implode(', ', $associatedCategories) . ' viewsCount ' . $viewsCount;
 
     $pdo->prepare('update `posts` set `name` = :name, `description` = :description, `text` = :text where `id` = :id')
         ->execute([

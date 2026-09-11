@@ -27,5 +27,7 @@ if (!is_callable([$controller, $action])) {
     throw new Exception('Method "' . $action . '" is not callable in "' . $controllerName . '" controller');
 }
 
-$controller->$action();
+$args = count($segments) > 2 ? array_slice($segments, 2) : [];
+
+$controller->$action(...$args);
 exit();

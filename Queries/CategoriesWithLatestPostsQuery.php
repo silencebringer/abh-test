@@ -21,17 +21,17 @@ join (
         posts.*,
         row_number() over (
             partition by category_post.category_id
-            order by posts.id desc
-        ) as rn
+            order by posts.published_at desc
+        ) as rownumber
     from category_post
     join posts
         on posts.id = category_post.post_id
 ) as posts
     on posts.category_id = categories.id
-    and posts.rn <= 3
+    and posts.rownumber <= 3
 order by
     categories.id,
-    posts.id desc;";
+    rownumber;";
 
         return Database::connection()->query($query);
     }

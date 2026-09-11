@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Connections\Database;
 use Exception;
 use PDO;
 
@@ -13,16 +14,7 @@ abstract class Model
 
     public function __construct()
     {
-        $config = require __DIR__ . '/../config.php';
-
-        $this->connection = new PDO(
-            "mysql:host={$config['database']['host']};dbname={$config['database']['database']}",
-            $config['database']['username'],
-            $config['database']['password'],
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            ]
-        );
+        $this->connection = Database::connection();
     }
 
     public function getTable(): string
@@ -36,9 +28,19 @@ abstract class Model
 
     public function all(): array
     {
-        $query = "SELECT * FROM " . $this->getTable();
+        $query = "select * from " . $this->getTable();
         $result = $this->connection->query($query);
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function find($id)
+    {
+        $query = "select * from " . $this->getTable() . " where id=:id";
+
+        $result = $this->connection->prepare($query);
+        $result->execute(['id' => $id]);
+
+        return $result->fetch();
     }
 }
