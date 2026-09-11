@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "sass assets/scss/style.scss public/assets/css/style.css",
+    "watch": "sass --watch assets/scss/style.scss public/assets/css/style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.93.0"
+  }
+}

@@ -6,12 +6,14 @@
     <title>
         {block name="title"}My website{/block}
     </title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <header>
     <nav>
-        <a href="/">Home</a>
+        <a href="/">На главную</a>
     </nav>
 </header>
 
