@@ -3,5 +3,10 @@
         "php": ">=8.4",
         "smarty/smarty": "^5.8",
         "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
     }
 }

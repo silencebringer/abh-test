@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
 use Smarty\Smarty;
 
@@ -10,8 +10,8 @@ abstract class Controller
     {
         $smarty = new Smarty();
 
-        $smarty->setTemplateDir(__DIR__ . '/../templates');
-        $smarty->setCompileDir(__DIR__ . '/../templates_c');
+        $smarty->setTemplateDir(__DIR__ . '/../../templates');
+        $smarty->setCompileDir(__DIR__ . '/../../templates_c');
 
         return $smarty;
     }

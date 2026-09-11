@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\Category;
-use Models\Post;
+use App\Models\Category;
+use App\Models\Post;
 
 class PostsController extends Controller
 {

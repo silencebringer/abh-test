@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
+use App\Queries\CategoriesWithLatestPostsQuery;
 use PDO;
-use Queries\CategoriesWithLatestPostsQuery;
 
 class HomeController extends Controller
 {

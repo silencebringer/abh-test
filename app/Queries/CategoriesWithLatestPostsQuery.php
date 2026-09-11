@@ -1,8 +1,8 @@
 <?php
 
-namespace Queries;
+namespace App\Queries;
 
-use Connections\Database;
+use App\Connections\Database;
 
 class CategoriesWithLatestPostsQuery
 {

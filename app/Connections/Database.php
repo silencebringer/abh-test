@@ -1,6 +1,6 @@
 <?php
 
-namespace Connections;
+namespace App\Connections;
 
 use PDO;
 
@@ -9,7 +9,7 @@ class Database extends Connection
     public static function connection()
     {
         if (!self::$connection) {
-            $config = require __DIR__ . '/../config.php';
+            $config = require __DIR__ . '/../../config.php';
 
             self::$connection = new PDO(
                 "mysql:host={$config['database']['host']};dbname={$config['database']['database']}",

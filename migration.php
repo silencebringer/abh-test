@@ -1,8 +1,8 @@
 <?php
 
-use Connections\Database;
+use App\Connections\Database;
 
-require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $migrationsDir = __DIR__ . '/migrations';
 
