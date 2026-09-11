@@ -13,7 +13,7 @@
     <ol>
         {foreach $posts.data as $post}
             <li>
-                <a href="/posts/show/{$post.id}">{$post.name}, published at {$post.published_at|date_format:"%m/%d/%Y %H:%M"}, viewed {$post.views_count} time{$post.views_count == 1 ? '' : 's'}</a>
+                <a href="/posts/show/{$post.id}">{$post.name}, опубликовано {$post.published_at|date_format:"%d.%m.%Y"} в {$post.published_at|date_format:"%H:%M"}, количество просмотров: {$post.views_count}</a>
             </li>
         {/foreach}
     </ol>
