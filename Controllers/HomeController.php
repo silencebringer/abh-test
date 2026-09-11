@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(): void
     {
-        $result = (new CategoriesWithLatestPostsQuery())->handle();
+        $result = new CategoriesWithLatestPostsQuery()->handle();
 
         $data = [];
 
@@ -24,7 +24,9 @@ class HomeController extends Controller
 
             $data[$id]['posts'][] = [
                 'id' => $row['post_id'],
-                'title' => $row['post_title'],
+                'name' => $row['post_name'],
+                'published_at' => $row['post_published_at'],
+                'views_count' => $row['post_views_count'],
             ];
         }
 

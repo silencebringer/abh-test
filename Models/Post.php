@@ -46,4 +46,42 @@ where category_post.category_id = :categoryId
             ]
         ];
     }
+
+    public function similar(array $categories, int $excludeId, int $limit = 3): array
+    {
+        $placeholders = [];
+
+        foreach ($categories as $index => $category) {
+            $placeholders[] = ':category' . $index;
+        }
+
+        $query = "
+select distinct posts.*
+from posts
+join category_post on category_post.post_id = posts.id
+where category_post.category_id in (" . implode(', ', $placeholders) . ") and
+    category_post.post_id != :excludeId
+order by published_at desc
+limit :limit
+";
+
+        $result = $this->connection->prepare($query);
+        foreach ($categories as $index => $category) {
+            $result->bindValue('category' . $index, $category, PDO::PARAM_INT);
+        }
+        $result->bindValue('excludeId', $excludeId, PDO::PARAM_INT);
+        $result->bindValue('limit', $limit, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function viewed(int $id): void
+    {
+        $query = "update posts set views_count = views_count + 1 where id = :id";
+
+        $result = $this->connection->prepare($query);
+        $result->bindValue('id', $id, PDO::PARAM_INT);
+        $result->execute();
+    }
 }

@@ -13,7 +13,9 @@ select
     categories.id as category_id,
     categories.name as category_name,
     posts.id as post_id,
-    posts.name as post_title
+    posts.name as post_name,
+    posts.published_at as post_published_at,
+    posts.views_count as post_views_count
 from categories
 join (
     select

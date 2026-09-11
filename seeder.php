@@ -47,15 +47,12 @@ for ($i = 0; $i < $postsCount; $i++) {
         ->sub(new DateInterval('P' . rand(1,60) . 'DT' . rand(1,59) . 'H' . rand(1,59) . 'M'))
         ->format('Y-m-d H:i:s');
 
-    $viewsCount = rand(1, 100000);
-
-    $pdo->prepare('insert into `posts` (`name`, `description`, `text`, `published_at`, `views_count`) values (:name, :description, :text, :published_at, :views_count)')
+    $pdo->prepare('insert into `posts` (`name`, `description`, `text`, `published_at`) values (:name, :description, :text, :published_at)')
         ->execute([
             'name' => $postName,
             'description' => $postName . ' Description',
             'text' => $postName . ' Text',
             'published_at' => $publishedAt,
-            'views_count' => $viewsCount,
         ]);
 
     $postId = $pdo->lastInsertId();
@@ -73,7 +70,7 @@ for ($i = 0; $i < $postsCount; $i++) {
         array_flip($associatedCategoriesKeys)
     );
 
-    $newName = 'Post ' . $postId . ' published at ' .  $publishedAt . ' for categories ' . implode(', ', $associatedCategories) . ' viewsCount ' . $viewsCount;
+    /*$newName = 'Post ' . $postId . ' published at ' .  $publishedAt . ' for categories ' . implode(', ', $associatedCategories);// . ' viewsCount ' . $viewsCount;
 
     $pdo->prepare('update `posts` set `name` = :name, `description` = :description, `text` = :text where `id` = :id')
         ->execute([
@@ -81,7 +78,7 @@ for ($i = 0; $i < $postsCount; $i++) {
             'description' => $newName . ' Description',
             'text' => $newName . ' Text',
             'id' => $postId,
-        ]);
+        ]);*/
 
     foreach ($associatedCategories as $categoryId) {
         $pdo->prepare('insert into `category_post` (`category_id`, `post_id`) values (:category_id, :post_id)')
